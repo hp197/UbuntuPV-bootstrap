@@ -10,6 +10,10 @@ apt-get remove -y linux-firmware
 dpkg -l | grep extra | grep linux | awk '{print $2}' | xargs apt-get remove -y
 echo .
 
+echo -n "Install what we need"
+apt-get install -y fdisk parted partprobe
+echo .
+
 echo -n "Removing other packages"
 apt-get remove --purge -y lxd
 apt-get remove --purge -y mdadm
