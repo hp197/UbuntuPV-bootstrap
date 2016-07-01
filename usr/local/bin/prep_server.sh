@@ -61,8 +61,11 @@ rm -f /etc/ssh/ssh_host_*
 rm -f /var/cache/apt/archives/*.deb
 rm -f /var/cache/apt/*cache.bin
 rm -f /var/lib/apt/lists/*_Packages
+history -c
 echo .
 
 echo -n "Enable firstboot service"
 /bin/systemctl enable firstboot
 echo .
+
+/sbin/poweroff

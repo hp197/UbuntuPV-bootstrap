@@ -23,7 +23,7 @@ collect_information() {
 } # collect_information
 
 display_alert() {
-		echo -e " * ${1}" > /dev/tty1
+	echo -e " * ${1}" > /dev/tty1
 }
 
 do_expand_rootfs() {
@@ -41,7 +41,7 @@ do_expand_rootfs() {
 	LASTSECTOR=$(( 32 * $(parted ${DEVICE} unit s print -sm | awk -F":" "/^${QUOTED_DEVICE}/ {printf (\"%0d\", ( \$2 * 100 / 3200))}") -1 ))
 	[[ ${PARTITIONS} == 1 ]] && STARTFROM=${PARTSTART}
 
-  # Start resizing
+	# Start resizing
 	echo -e "\n### [firstrun]. Start resizing Partition now:\n" >>${Log}
 	cat /proc/partitions >>${Log}
 	echo -e "\nExecuting fdisk, fsck and partprobe:" >>${Log}
@@ -61,9 +61,9 @@ do_expand_rootfs() {
 	else
 		((echo d; echo $PARTITIONS; echo n; echo p; echo ; echo $STARTFROM; echo ${LASTSECTOR} ; echo w;) | fdisk ${DEVICE}) >>${Log} 2>&1 || true
 	fi
-	s=0	
+
 	fsck -f $root_partition >>${Log} 2>&1 || true
-	partprobe ${DEVICE} >>${Log} 2>&1 || s=$?
+	partprobe ${DEVICE} >>${Log} 2>&1
 	echo -e "\nNew partition table:\n" >>${Log}
 	cat /proc/partitions >>${Log}
 	echo -e "\nNow executing resize2fs to enlarge ${root_partition} to the maximum:\n" >>${Log}
@@ -82,15 +82,19 @@ main() {
   check_prerequisits
 	collect_information
 
-  if [ -r "/usr/local/bin/domu-hostname.sh" ]; then
-    /bin/bash /usr/local/bin/domu-hostname.sh
-    rm -f /usr/local/bin/domu-hostname.sh
-  fi
+	if [ -r "/usr/local/bin/prep_server.sh" ]; then
+		rm -f "/usr/local/bin/prep_server.sh"
+	fi
 
-  if [ -r "/usr/local/bin/generate-sshd-keys.sh" ]; then
-    /bin/bash /usr/local/bin/generate-sshd-keys.sh
-    rm -f /usr/local/bin/generate-sshd-keys.sh
-  fi
+	if [ -r "/usr/local/bin/domu-hostname.sh" ]; then
+		/bin/bash /usr/local/bin/domu-hostname.sh
+		rm -f /usr/local/bin/domu-hostname.sh
+	fi
+
+	if [ -r "/usr/local/bin/generate-sshd-keys.sh" ]; then
+		/bin/bash /usr/local/bin/generate-sshd-keys.sh
+		rm -f /usr/local/bin/generate-sshd-keys.sh
+	fi
 
 	if [[ "$rootfstype" == "ext4" && ! -f "/root/.no_rootfs_resize" ]]; then
 		display_alert "Resizing root filesystem."
@@ -101,3 +105,6 @@ main() {
 	rm -f /lib/systemd/system/firstboot.service
 	rm -f /usr/local/bin/firstboot.sh
 } # main
+
+main
+
