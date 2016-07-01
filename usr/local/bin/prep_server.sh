@@ -65,7 +65,6 @@ rm -f rm -rf /var/lib/dhcp/*.leases
 rm -f /var/spool/mail/*
 echo "" > /root/.bash_history
 echo "" > /home/toor/.bash_history
-history -r
 history -c
 history -a
 echo .
