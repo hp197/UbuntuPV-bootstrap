@@ -63,3 +63,6 @@ rm -f /var/cache/apt/*cache.bin
 rm -f /var/lib/apt/lists/*_Packages
 echo .
 
+echo -n "Enable firstboot service"
+/bin/systemctl enable firstboot
+echo .
