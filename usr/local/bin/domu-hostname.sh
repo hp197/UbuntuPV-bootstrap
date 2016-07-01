@@ -9,10 +9,12 @@ if [ -e $XENSTOREREAD ]; then
 	NAME=`xenstore-read name | sed -e 's/[^[:alnum:]|-]/-/g' | tr '[:upper:]' '[:lower:]'`
 
 	# Don't do anything if this name is blank
-	[ "$NAME" = "" ] && exit 0
+	[ "${NAME}" = "" ] && exit 0
+
+	echo "Setting the hostname to: ${NAME}"
 
 	# Set the hostname
-	echo "$NAME" > /etc/hostname
+	echo "${NAME}" > /etc/hostname
 	/bin/hostname -F /etc/hostname
 fi
 exit 0
