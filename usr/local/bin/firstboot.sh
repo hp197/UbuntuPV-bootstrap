@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# Immediately exit if not called by init system
-if [ "X$1" != "Xstart" ]; then
-	exit 1
-fi
 
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 Log=/var/log/firstboot.log
