@@ -61,6 +61,8 @@ rm -f /etc/ssh/ssh_host_*
 rm -f /var/cache/apt/archives/*.deb
 rm -f /var/cache/apt/*cache.bin
 rm -f /var/lib/apt/lists/*_Packages
+rm -f rm -rf /var/lib/dhcp/*.leases
+rm -f /var/spool/mail/*
 history -c
 echo .
 
