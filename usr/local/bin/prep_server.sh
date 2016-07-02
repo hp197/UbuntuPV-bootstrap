@@ -11,7 +11,7 @@ dpkg -l | grep extra | grep linux | awk '{print $2}' | xargs apt-get remove -y
 echo .
 
 echo -n "Install what we need"
-apt-get install -y fdisk parted partprobe xe-guest-utilities
+apt-get install -y fdisk parted partprobe xe-guest-utilities xenstore-utils
 echo .
 
 echo -n "Removing other packages"
