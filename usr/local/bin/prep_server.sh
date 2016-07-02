@@ -1,5 +1,9 @@
 #!/bin/bash
 
+echo -n "Change the apt update location"
+sed -i "s/http:\/\/us\./http:\/\/nl./g" /etc/apt/sources.list
+echo .
+
 echo -n "Updating system"
 apt-get update && apt-get dist-upgrade -y
 echo .
