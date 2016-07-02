@@ -34,7 +34,7 @@ do_expand_rootfs() {
 	PARTSTART=$(parted ${DEVICE} unit s print -sm | tail -1 | cut -d: -f2 | sed 's/s//') # start of first partition
 	PARTEND=$(parted ${DEVICE} unit s print -sm | head -3 | tail -1 | cut -d: -f3 | sed 's/s//') # end of first partition
 	STARTFROM=$(( ${PARTEND} + 1 ))
-	LASTSECTOR=$(( 32 * $(parted ${DEVICE} unit s print -sm | awk -F":" "/^${QUOTED_DEVICE}/ {printf (\"%0d\", ( \$2 * 100 / 3200))}") -1 ))
+	LASTSECTOR=$(( 32 * $(parted ${DEVICE} unit s print -sm | awk -F":" "/^${QUOTED_DEVICE}/ {printf (\"%0d\", ( \$2 ))}") -1 ))
 	[[ ${PARTITIONS} == 1 ]] && STARTFROM=${PARTSTART}
 
 	# Start resizing
