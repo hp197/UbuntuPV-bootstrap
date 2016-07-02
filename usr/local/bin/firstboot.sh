@@ -31,11 +31,6 @@ do_expand_rootfs() {
 	
 	# get count of partitions and their boundaries
 	PARTITIONS=$(( $(grep -c ${DEVICE##*/}p /proc/partitions) ))
-	PARTSTART=$(parted ${DEVICE} unit s print -sm | tail -1 | cut -d: -f2 | sed 's/s//') # start of first partition
-	PARTEND=$(parted ${DEVICE} unit s print -sm | head -3 | tail -1 | cut -d: -f3 | sed 's/s//') # end of first partition
-	STARTFROM=$(( ${PARTEND} + 1 ))
-	LASTSECTOR=$(( 32 * $(parted ${DEVICE} unit s print -sm | awk -F":" "/^${QUOTED_DEVICE}/ {printf (\"%0d\", ( \$2 ))}") -1 ))
-	[[ ${PARTITIONS} == 1 ]] && STARTFROM=${PARTSTART}
 
 	# Start resizing
 	echo -e "\n### [firstrun]. Start resizing Partition now:\n" >>${Log}
@@ -48,14 +43,14 @@ do_expand_rootfs() {
 			2.27.1*)
 				# if dealing with fdisk from util-linux 2.27.1 we need a workaround for just 1 partition
 				# https://github.com/igorpecovnik/lib/issues/353#issuecomment-224728506
-				((echo d; echo n; echo p; echo ; echo $STARTFROM; echo ${LASTSECTOR} ; echo w;) | fdisk ${DEVICE}) >>${Log} 2>&1 || true
+				((echo d; echo n; echo p; echo ; echo ; echo ; echo w;) | fdisk ${DEVICE}) >>${Log} 2>&1 || true
 				;;
 			*)
-				((echo d; echo $PARTITIONS; echo n; echo p; echo ; echo $STARTFROM; echo ${LASTSECTOR} ; echo w;) | fdisk ${DEVICE}) >>${Log} 2>&1 || true
+				((echo d; echo $PARTITIONS; echo n; echo p; echo ; echo ; echo ; echo w;) | fdisk ${DEVICE}) >>${Log} 2>&1 || true
 				;;
 		esac
 	else
-		((echo d; echo $PARTITIONS; echo n; echo p; echo ; echo $STARTFROM; echo ${LASTSECTOR} ; echo w;) | fdisk ${DEVICE}) >>${Log} 2>&1 || true
+		((echo d; echo $PARTITIONS; echo n; echo p; echo ; echo ; echo ; echo w;) | fdisk ${DEVICE}) >>${Log} 2>&1 || true
 	fi
 
 	fsck -f $root_partition >>${Log} 2>&1 || true
