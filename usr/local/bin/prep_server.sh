@@ -15,7 +15,7 @@ dpkg -l | grep extra | grep linux | awk '{print $2}' | xargs apt-get remove -y
 echo .
 
 echo -n "Install what we need"
-apt-get install -y parted xe-guest-utilities xenstore-utils
+apt-get install -y parted xe-guest-utilities xenstore-utils puppet facter
 echo .
 
 echo -n "Removing other packages"
