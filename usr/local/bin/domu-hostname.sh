@@ -16,5 +16,7 @@ if [ -e $XENSTOREREAD ]; then
 	# Set the hostname
 	echo "${NAME}" > /etc/hostname
 	/bin/hostname -F /etc/hostname
+
+	echo "127.0.1.1   ${NAME}" >> /etc/hosts
 fi
 exit 0
