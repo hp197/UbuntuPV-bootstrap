@@ -6,3 +6,6 @@ Before=network.target
 [Service]
 Type=oneshot
 ExecStart=/usr/local/bin/firstboot.sh
+
+[Install]
+WantedBy=sysinit.target
