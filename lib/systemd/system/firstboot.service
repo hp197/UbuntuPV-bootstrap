@@ -1,10 +1,8 @@
 [Unit]
 Description=Firstboot Service
-After=getty@tty1.service
+After=local-fs.target
+Before=network.target
 
 [Service]
 Type=oneshot
 ExecStart=/usr/local/bin/firstboot.sh
-
-[Install]
-WantedBy=default.target
