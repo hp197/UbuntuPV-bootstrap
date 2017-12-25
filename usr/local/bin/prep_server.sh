@@ -19,7 +19,7 @@ apt-get install -y parted xe-guest-utilities xenstore-utils
 echo .
 
 echo -n "Removing other packages"
-apt-get remove --purge -y lvm2 lxd mdadm cryptsetup plymouth liblxc1 lxcfs
+apt-get remove --purge -y lvm2 lxd mdadm cryptsetup plymouth liblxc1 lxcfs snapd
 apt-get autoremove --purge -y
 echo .
 
