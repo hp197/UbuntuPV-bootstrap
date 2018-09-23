@@ -9,9 +9,9 @@ apt-get update && apt-get dist-upgrade -y
 echo .
 
 echo -n "Minimizing kernel"
-apt-get install -f -y linux-virtual
 apt-get remove -y linux-firmware
-dpkg -l | grep extra | grep linux | awk '{print $2}' | xargs apt-get remove -y
+apt-get install -f -y linux-virtual
+dpkg -l | awk '{print $2}' | grep ^linux | grep '-extra-' | xargs apt-get remove -y
 echo .
 
 echo -n "Install what we need"
