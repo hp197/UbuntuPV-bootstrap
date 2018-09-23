@@ -72,11 +72,12 @@ rm -f rm -rf /var/lib/dhcp/*.leases
 rm -f /var/spool/mail/*
 for FILE in `find /var/log/ -type f`; do echo "Clearing: ${FILE}" && echo -n > "${FILE}"; done
 
-rm -f /root/.gitconfig
-rm -f /home/*/.gitconfig
+rm -f /root/{.gitconfig,.viminfo}
+rm -f /home/*/{.gitconfig,.viminfo}
 echo -n "" > /root/.bash_history
 echo -n "" > /home/*/.bash_history
 chown toor:toor /home/toor/.bash_history
+
 history -c
 history -a
 echo .
