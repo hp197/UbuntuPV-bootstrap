@@ -19,7 +19,11 @@ apt-get install -y parted xe-guest-utilities xenstore-utils
 echo .
 
 echo -n "Removing other packages"
-apt-get remove --purge -y lvm2 lxd mdadm cryptsetup plymouth liblxc1 lxcfs snapd open-iscsi
+apt-get remove --purge -y \
+	lvm2 lxd mdadm cryptsetup plymouth liblxc1 lxcfs snapd open-iscsi \
+	ubuntu-advantage-tools cloud-guest-utils btrfs-progs btrfs-tools \
+	xfsprogs laptop-detect apport apport-symptoms
+
 apt-get autoremove --purge -y
 echo .
 
