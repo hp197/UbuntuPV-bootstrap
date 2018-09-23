@@ -70,8 +70,12 @@ rm -f /var/cache/apt/*cache.bin
 rm -f /var/lib/apt/lists/*_Packages
 rm -f rm -rf /var/lib/dhcp/*.leases
 rm -f /var/spool/mail/*
+for FILE in `find /var/log/ -type f`; do echo "Clearing: ${FILE}" && echo -n > "${FILE}"; done
+
+rm -f /root/.gitconifg
+rm -f /home/*/.gitconfig
 echo -n "" > /root/.bash_history
-echo -n "" > /home/toor/.bash_history
+echo -n "" > /home/*/.bash_history
 chown toor:toor /home/toor/.bash_history
 history -c
 history -a
